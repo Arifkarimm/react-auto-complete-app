@@ -4,28 +4,22 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isHidden: false
-    };
-    this.onHandleClick = this.onHandleClick.bind(this);
+
+    this.items = ["Zara", "John", "Alex", "Johanas"];
   }
 
-  onHandleClick() {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
-  }
   render() {
     return (
       <div>
-        <button onClick={this.onHandleClick}>TooGle</button>
-        {!this.state.isHidden && <Display />}
+        <input type="text" />
+        <ul>
+          {this.items.map(item => (
+            <li>{item}</li>
+          ))}
+        </ul>
       </div>
     );
   }
 }
 
-const Display = () => {
-  return <h2>Display</h2>;
-};
 export default App;
