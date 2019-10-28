@@ -6,9 +6,11 @@ class App extends Component {
     super(props);
 
     this.items = ["Zara", "John", "Alex", "Johanas"];
+
     this.state = {
       suggestions: []
     };
+
     this.onClickSuggestions = this.onClickSuggestions.bind(this);
   }
 
@@ -16,7 +18,7 @@ class App extends Component {
     const value = event.target.value;
     let suggestions = [];
     if (value.length > 0) {
-      const regex = new RegExp(`^$(value)`, "i");
+      const regex = new RegExp(`^${value}`, "i");
       suggestions = this.items.sort().filter(v => regex.test(v));
     }
 
@@ -25,16 +27,26 @@ class App extends Component {
     });
   }
 
+  renderSuggestions() {
+    const { suggestions } = this.state;
+    if (suggestions.length === 0) {
+      return null;
+    }
+    return (
+      <ul>
+        {suggestions.map(item => (
+          <li key={item.id}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
   render() {
     console.log(this.state.suggestions);
     return (
       <div>
         <input onChange={this.onClickSuggestions} type="text" />
-        <ul>
-          {this.items.map(item => (
-            <li>{item}</li>
-          ))}
-        </ul>
+        {this.renderSuggestions()}
       </div>
     );
   }
