@@ -8,7 +8,8 @@ class App extends Component {
     this.items = ["Zara", "John", "Alex", "Johanas"];
 
     this.state = {
-      suggestions: []
+      suggestions: [],
+      text: ""
     };
 
     this.onClickSuggestions = this.onClickSuggestions.bind(this);
@@ -23,7 +24,15 @@ class App extends Component {
     }
 
     this.setState({
-      suggestions: suggestions
+      suggestions: suggestions,
+      text: value
+    });
+  }
+
+  selectSuggestion(value) {
+    this.setState({
+      text: value,
+      suggestions: []
     });
   }
 
@@ -35,17 +44,23 @@ class App extends Component {
     return (
       <ul>
         {suggestions.map(item => (
-          <li key={item.id}>{item}</li>
+          <li key={item.id} onClick={() => this.selectSuggestion(item)}>
+            {item}
+          </li>
         ))}
       </ul>
     );
   }
 
   render() {
-    console.log(this.state.suggestions);
+    console.log(this.state.text);
     return (
       <div>
-        <input onChange={this.onClickSuggestions} type="text" />
+        <input
+          value={this.state.text}
+          onChange={this.onClickSuggestions}
+          type="text"
+        />
         {this.renderSuggestions()}
       </div>
     );
